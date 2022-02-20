@@ -140,5 +140,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+<<<<<<< HEAD
 
 django_heroku.settings(locals())
+=======
+django_heroku.settings(locals())
+>>>>>>> 8969f97d62f4fe7a6bb772d91451d58c4ba0aa1e
