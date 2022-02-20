@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+
+    <link rel="shortcut icon" href="img/core-img/favicon.ico" type="image/x-icon">
+    <!-- All CSS Stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/all-css-libraries.css' %}">
+    <!-- Core Stylesheet-->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    {% block headScripts %}{% endblock headScripts %}
+</head>
+<body>
+    
+    {% block body %}{% endblock body %}
+
+    <script src="{% static 'js/all-js-libraries.js' %}"></script>
+    <script src="{% static 'js/active.js' %}"></script>
+    <script src="{% static 'js/charts.js' %%}"></script>
+    {% block endScripts %}{% endblock endScripts %}
+</body>
+</html>

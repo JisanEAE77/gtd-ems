@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+
+{% comment %} header  {% endcomment %}
+
+{% include "base/header.html" %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-wrapper">
+    <div class="container">
+      <div class="breadcrumb-content">
+        <h2 class="breadcrumb-title">Events</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Events</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="featured-items-wrapper">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+          {% for e in events %}
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="nft-card card featured-card border-0 bg-gray">
+            <div class="img-wrap"><img src="{{ e.image.url }}" alt="">
+              <!-- Badge -->
+              <div class="badge bg-primary position-absolute"><img src="{% static 'img/core-img/fire.png' %}" alt="">Ended on {{ e.endTime }}</div>
+              <!-- Dropdown -->
+              
+            </div>
+            <div class="card-body">
+              
+              <!-- Meta Info -->
+              <div class="row gx-2 align-items-center mt-2">
+                <div class="col-12">
+                  <div class="name-info d-flex align-items-center">
+                    <div class="author-img position-relative"><img class="shadow" src="{{ e.image.url }}" alt=""><i class="bi bi-check position-absolute bg-success"></i></div>
+                    <div class="name-author"><a class="name d-block hover-primary fw-bold text-truncate" href="/event/{{ e.sku }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ e.title }}">{{ e.title }}</a><a class="author d-block fz-12 hover-primary text-truncate" href="/event/{{ e.sku }}">{{ e.desc }}</a></div>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- Button -->
+              <div class="row gx-2 align-items-center mt-3">
+                <div class="col-12"><a class="btn btn-primary rounded-pill btn-sm w-100" href="/event/{{ e.sku }}">Explore</a></div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {% endfor %}
+      </div>
+    </div>
+    {% comment %} <div class="container">
+      <div class="text-center mt-70"><a class="btn btn-primary btn-sm rounded-pill" href="#">Load more<i class="ms-1 bi bi-arrow-repeat"></i></a></div>
+    </div> {% endcomment %}
+  </div>
+  <div class="divider"></div>
+
+
+{% comment %} footer {% endcomment %}
+
+{% include "base/footer.html"%}
+
+{% endblock %}

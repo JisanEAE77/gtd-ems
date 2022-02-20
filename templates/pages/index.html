@@ -1,0 +1,252 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+
+{% comment %} header  {% endcomment %}
+
+{% include "base/header.html" %}
+
+<!-- Welcome Wrapper  -->
+<div class="welcome-area pt-120">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Welcome Content -->
+        <div class="col-12 col-sm-10 col-md-6">
+          <div class="welcome-content mb-5 mb-md-0">
+            <h2 data-aos="fade-up" data-aos-duration="750" data-aos-delay="500">{{ banner.title }}</h2>
+            <p class="mb-4" data-aos="fade-up" data-aos-duration="750" data-aos-delay="800">{{ banner.short_desc }}</p>
+            <div class="bid-ends mb-4" data-date="{{ banner.endTime|date:"m d, Y H:i:s" }}">
+              <div><span class="days"></span><span>Days</span></div>
+              <div><span class="hours"></span><span>Hours</span></div>
+              <div><span class="minutes"></span><span>Min</span></div>
+              <div><span class="seconds"></span><span>Sec</span></div>
+            </div>
+            <div class="hero-btn-group" data-aos="fade-up" data-aos-duration="750" data-aos-delay="1200"><a class="btn btn-primary rounded-pill mt-3 me-3" href="{{ banner.link }}">Explore Now<i class="ms-2 bi bi-arrow-right"></i></a></div>
+          </div>
+        </div>
+        <!-- Welcome Thumb -->
+        <div class="col-12 col-sm-9 col-md-6">
+          <div class="welcome-thumb" data-aos="fade-up" data-aos-duration="750" data-aos-delay="500"><img src="{{ banner.image.url }}" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="featured-nfts-wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-9 col-lg-6">
+          <div class="section-heading">
+            <h2 class="mb-0">Explore Events</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Featured NFT's Slide-->
+          <div class="featured-nfts-slide">
+            {% for e in event %}
+            <div>
+              <!-- Featured Card -->
+              <div class="nft-card card featured-card border-0 bg-gray">
+                <div class="img-wrap"><img src="{{ e.image.url }}" alt="">
+                  <!-- Badge -->
+                  <div class="badge bg-primary position-absolute"><img src="{% static 'img/core-img/fire.png' %}" alt="">Ended on {{ e.endTime }}</div>
+                  
+                </div>
+                <div class="card-body">
+                  
+                  <!-- Meta Info -->
+                  <div class="row gx-2 align-items-center mt-2">
+                    <div class="col-12">
+                      <div class="name-info d-flex align-items-center">
+                        <div class="author-img position-relative"><img class="shadow" src="{{ e.image.url }}" alt=""><i class="bi bi-check position-absolute bg-success"></i></div>
+                        <div class="name-author"><a class="name d-block hover-primary fw-bold text-truncate" href="/event/{{ e.sku }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ e.title }}">{{ e.title }}</a><a class="author d-block fz-12 hover-primary text-truncate" href="/event/{{ e.sku }}">{{ e.desc }}</a></div>
+                      </div>
+                    </div>
+                    
+                  
+                  </div>
+                  <!-- Button -->
+                  <div class="row gx-2 align-items-center mt-3">
+                    <div class="col-12 align-items-center"><a class="btn btn-primary rounded-pill btn-sm mt-3 w-100" href="/event/{{ e.sku }}">Explore</a></div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="live-bidding-wrapper bg-gray pt-120 pb-120">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-7">
+          <div class="section-heading d-flex align-items-center">
+            <div class="spinner-grow text-danger" role="status"><span class="visually-hidden">Loading...</span></div>
+            <h2 class="mb-0 ms-2">Live Events</h2>
+          </div>
+        </div>
+        <div class="col-5 text-end"><a class="btn rounded-pill btn-outline-primary btn-sm border-2 mb-5" href="/live-events">View All Live Events</a></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+        {% for e in live %}
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <!-- Featured Card -->
+          <div class="nft-card card border-0">
+            <div class="card-body">
+              <div class="img-wrap"><img src="{{ e.image.url }}" alt="">
+                <!-- Badge -->
+                <div class="badge bg-danger position-absolute"><img src="{% static 'img/core-img/fire.png' %}" alt="">Live</div>
+                
+                <!-- Bid End -->
+                <div class="bid-ends" data-date="{{ e.endTime|date:"m d, Y H:i:s" }}">
+                  <div><span class="days"></span><span>Days</span></div>
+                  <div><span class="hours"></span><span>Hours</span></div>
+                  <div><span class="minutes"></span><span>Min</span></div>
+                  <div><span class="seconds"></span><span>Sec</span></div>
+                </div>
+              </div>
+             
+              <!-- Meta Info -->
+              <div class="row gx-2 align-items-center mt-2">
+                <div class="col-12">
+                  <div class="name-info d-flex align-items-center">
+                    <div class="author-img position-relative"><img class="shadow" src="{{ e.image.url }}" alt=""><i class="bi bi-check position-absolute bg-success"></i></div>
+                    <div class="name-author"><a class="name d-block hover-primary fw-bold text-truncate" href="/event/{{ e.sku }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ e.title }}">{{ e.title }}</a><a class="author d-block fz-12 hover-primary text-truncate" href="/event/{{ e.sku }}">{{ e.desc }}</a></div>
+                  </div>
+                </div>
+                
+                <div class="col-12"><a class="btn btn-warning rounded-pill btn-sm mt-3 w-100" href="/event/{{ e.sku }}">Join</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="discover-nft-wrapper">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-4">
+          <div class="section-heading">
+            <h2 class="mb-0">Latest</h2>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="row g-4 funto-collection-filter-list">
+            <!-- Single Card -->
+            {% for i in img %}
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 list-item art">
+              <div class="nft-card card shadow-sm">
+                <div class="card-body">
+                  <div class="img-wrap"><img src="{{ i.image.url }}" alt="">
+                    <!-- Badge -->
+                    <div class="badge bg-primary position-absolute"><img src="{% static 'img/core-img/fire.png' %}" alt="">Latest</div>
+                   
+                  </div>
+                  
+                  <!-- Meta Info -->
+                  <div class="row gx-2 align-items-center mt-2">
+                    <div class="col-12">
+                      <div class="name-info d-flex align-items-center">
+                        <div class="author-img position-relative"><img class="shadow" src="{{ i.image.url }}" alt=""><i class="bi bi-check position-absolute bg-success"></i></div>
+                        <div class="name-author"><a class="name d-block hover-primary fw-bold text-truncate" href="/image/{{ i.sku }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Monkey Arts #114">{{ i.title }}</a><a class="author d-block fz-12 hover-primary text-truncate" href="/image/{{ i.sku }}">{{ i.desc }}</a></div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <!-- Button -->
+                  <div class="row gx-2 align-items-center mt-3">
+                    <div class="col-6"><a class="btn btn-primary btn-sm rounded-pill" href="/image/{{ i.sku }}">View</a></div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="divider"></div>
+  <div class="process-wrapper" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
+    <div class="container">
+      <div class="row g-4 g-xxl-5 align-items-center justify-content-center">
+        <div class="col-12 col-sm-6 col-xl-3">
+          <!-- Single Card-->
+          <div class="single-process-card card bg-gray border-0" data-aos="fade-up" data-aos-duration="750" data-aos-delay="400">
+            <div class="card-body p-4 text-center"><img class="mb-3 mx-auto" src="{% static 'img/illustrator/4.png' %}" alt="">
+              <h5 class="mb-3">Create your account &amp; add wallet</h5>
+              <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <!-- Step -->
+            <div class="step-number">1</div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+          <!-- Single Card-->
+          <div class="single-process-card card bg-gray border-0" data-aos="fade-up" data-aos-duration="750" data-aos-delay="600">
+            <div class="card-body p-4 text-center"><img class="mb-3 mx-auto" src="{% static 'img/illustrator/2.png' %}" alt="">
+              <h5 class="mb-3">Get approval from our review team</h5>
+              <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <!-- Step -->
+            <div class="step-number">2</div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+          <!-- Single Card-->
+          <div class="single-process-card card bg-gray border-0" data-aos="fade-up" data-aos-duration="750" data-aos-delay="800">
+            <div class="card-body p-4 text-center"><img class="mb-3 mx-auto" src="{% static 'img/illustrator/3.png' %}" alt="">
+              <h5 class="mb-3">Create your NFT's &amp; list them for sale</h5>
+              <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <!-- Step -->
+            <div class="step-number">3</div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+          <!-- Single Card-->
+          <div class="single-process-card card bg-gray border-0" data-aos="fade-up" data-aos-duration="750" data-aos-delay="1000">
+            <div class="card-body p-4 text-center"><img class="mb-3 mx-auto" src="{% static 'img/illustrator/1.png' %}" alt="">
+              <h5 class="mb-3">Now sale your items &amp; earn rewards</h5>
+              <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <!-- Step -->
+            <div class="step-number">4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  
+
+{% comment %} footer {% endcomment %}
+
+{% include "base/footer.html"%}
+
+{% endblock %}

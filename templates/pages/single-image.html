@@ -1,0 +1,117 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+
+{% comment %} header  {% endcomment %}
+
+{% include "base/header.html" %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-wrapper">
+    <div class="container">
+      <div class="breadcrumb-content">
+        <h2 class="breadcrumb-title">Image Details</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Image Details</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <!-- Share Modal -->
+  <div class="share-modal modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body p-4 text-center">
+          <h4 class="mb-4" id="shareModalLabel">Share this Image</h4>
+          <div class="d-flex align-items-center justify-content-center"><a class="mx-2" href="#"><img src="/media/imageQR/{{ img.sku }}.jpg" alt="{{ img.sku }}"></a></div>
+          <button class="btn btn-danger btn-sm rounded-pill mt-4" type="button" data-bs-dismiss="modal" aria-label="Close"><i class="me-1 bi bi-x-lg"></i>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Copy Link Modal -->
+  <div class="share-modal modal fade" id="copylinkModal" tabindex="-1" aria-labelledby="copylinkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body p-4 text-center">
+          <h4 class="mb-4" id="copylinkLabel">Copy Image link</h4>
+          <p class="user-select-all mb-0 border border-2 p-3 rounded">{{ request.META.HTTP_HOST }}/image/{{ img.sku }}</p>
+          <button class="btn btn-danger btn-sm rounded-pill mt-4" type="button" data-bs-dismiss="modal" aria-label="Close"><i class="me-1 bi bi-x-lg"></i>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Report Modal -->
+  
+  <!-- Item Details -->
+  <div class="item-details-wrap">
+    <div class="container">
+      <div class="row g-4 g-lg-5 justify-content-center">
+        <div class="col-12 col-md-12 col-lg-6">
+          <div class="item-big-thumb"><img src="{{ img.image.url }}" alt="" data-action="zoom"></div>
+        </div>
+        <!-- Item Details Content -->
+        <div class="col-12 col-md-9 col-lg-6">
+          <div class="item-details-content mt-5 mt-lg-0">
+            <div class="dropdown item-details-dd">
+              <button class="dropdown-toggle" id="dwd987" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
+              <!-- Dropdown Menu -->
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dwd987">
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#shareModal"><i class="me-1 bi bi-share"></i>Share</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#copylinkModal"><i class="me-1 bi bi-box-arrow-up-right"></i>Copy Link</a></li>
+              </ul>
+            </div>
+            
+            <div class="d-flex align-items-center mb-4">
+              <div class="author-img position-relative me-3"><img class="shadow" src="{{ img.image.url }}" alt=""><i class="bi bi-check position-absolute bg-primary"></i></div>
+              <div class="name-author"><span class="d-block fz-14"><h2 class="my-3">{{ img.title }}</h2></div>
+            </div>
+            <div class="border-top w-75 mb-4"></div>
+        
+            <div class="row align-items-end">
+              {% comment %} <div class="col-6 col-sm-4">
+                <p class="mb-2">Upload and Vote</p>
+                <h5 class="text-center mb-0 border border-2 px-3 py-2 border-primary d-inline-block rounded text-primary w-100" style="cursor: pointer;"><a class="btn btn-primary rounded-pill w-100" href="/gallary/{{ event.sku }}"><img class="me-1" src="{% static 'img/core-img/fire.png' %}" alt="">Upload</a></h5>
+              </div> {% endcomment %}
+              {% if voted %}
+              <div class="col-6 col-sm-4 col-lg-5"><p class="ml-2">Vote</p><a class="btn btn-warning rounded-pill w-100" href="/unvote/{{ img.sku }}">Unvote</a></div>
+              {% else %}
+              <div class="col-6 col-sm-4 col-lg-5"><p class="ml-2">Vote</p><a class="btn btn-warning rounded-pill w-100" href="/vote/{{ img.sku }}">Vote</a></div>
+              {% endif %}
+              {% if withdraw %}
+              <div class="col-6 col-sm-4 col-lg-5"><a class="btn btn-danger rounded-pill w-100" href="/delete/{{ img.sku }}">Withdraw</a></div>
+              {% endif %}
+              
+            </div>
+            <div class="border-top w-75 my-4"></div>
+            <div class="short-description">
+              <h5>Description</h5>
+              <p class="mb-0">{{ img.desc }}</p>
+            </div>
+            <div class="border-top w-75 my-4"></div>
+            <div class="short-description">
+              <h5>Share:</h5>
+              <img src="/media/imageQR/{{ img.sku }}.jpg" alt="{{ img.sku }}" height="240px" width="240px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="divider"></div>
+  
+
+
+{% comment %} footer {% endcomment %}
+
+{% include "base/footer.html"%}
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+<!-- Header Area-->
+<header class="header-area">   
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <!-- Navbar Brand --><a class="navbar-brand" href="index.html"><img class="light-logo" src="img/core-img/logo.png" alt=""><img class="dark-logo" src="img/core-img/logo-white.png" alt=""></a>
+        <!-- Navbar Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#funtoNav" aria-controls="funtoNav" aria-expanded="false" aria-label="Toggle navigation"><i class="bi bi-grid"></i></button>
+        <!-- Navbar -->
+        <div class="collapse navbar-collapse" id="funtoNav">
+          <ul class="navbar-nav navbar-nav-scroll my-2 my-lg-0">
+            <li><a href="/">Home</a>
+            </li>
+            <li><a href="/events">Events</a>
+            </li>
+            <li><a href="/live-events">Live Events</a>
+            </li>
+            <li><a href="/image-gallary">Gallary</a>
+            </li>
+            <li><a href="contact">Contact</a></li>
+          </ul>
+          
+          <!-- Header Meta -->
+          <div class="header-meta d-flex align-items-center ms-lg-auto">
+            {% if request.user.is_authenticated %}
+            <!-- User Dropdown -->
+            <div class="user-dropdown dropdown mx-3">
+              <button class="btn dropdown-toggle user-btn" id="dropdownMenuButton1" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i></button>
+              <ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuButton1">
+                
+                <li><a class="dropdown-item" href="/my-collection"><i class="me-2 bi bi-collection"></i>My Collections</a></li>
+               
+                <li><a class="dropdown-item" href="/settings"><i class="me-2 bi bi-gear"></i>Settings</a></li>
+              </ul>
+            </div>
+            <!-- Create New Button --><a class="btn btn-warning btn-sm rounded-pill" href="/logout">Log-out</a>
+          
+          {% else %}
+          <a class="btn btn-warning btn-sm rounded-pill" href="/login">Login</a>
+          <a class="btn btn-warning btn-sm rounded-pill" href="/register">Register</a>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>

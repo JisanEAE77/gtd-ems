@@ -1,0 +1,114 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+
+{% comment %} header  {% endcomment %}
+
+{% include "base/header.html" %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-wrapper">
+    <div class="container">
+      <div class="breadcrumb-content">
+        <h2 class="breadcrumb-title">Image Gallary</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Image Galary</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <!-- Explore Items -->
+  <div class="explore-items-wrapper">
+    <div class="container">
+    <form method="POST">
+        {% csrf_token %}
+      <div class="row g-4 align-items-end">
+        
+        <div class="col-12 col-sm-6 col-lg-3">
+          <h5>Status</h5>
+          <select class="filter-select bg-gray w-100" name="sku">
+            <option selected value="">{{ event.title }}</option>
+            {% for e in events %}
+            <option value="{{ e.sku }}">{{ e.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="col-12 col-sm-6 col-lg-3">
+          <button class="btn btn-primary rounded-pill w-100" type="submit">Apply<i class="ms-1 bi bi-arrow-right"></i></button>
+        </div>
+        
+      </div>
+    </form>
+    </div>
+    <div class="w-100 mb-70 d-block"></div>
+    <div class="discover-nft-wrapper">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-4">
+              <div class="section-heading">
+                <h2 class="mb-0">Latest</h2>
+              </div>
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="filters-button-group d-flex justify-content-md-end flex-wrap">
+                  <button class="btn btn-outline-primary rounded-pill border-2 btn-sm mb-3 mx-2 active" type="button" data-filter="*"><i class="fz-16 bi bi-collection"></i>All</button>
+                  {% for e in event.tags.all %}
+                  <button class="btn btn-outline-primary rounded-pill border-2 btn-sm mb-3 mx-2" type="button" data-filter=".{{ e.name }}"><i class="fz-16 "></i>{{ e.name }}</button>
+                 {% endfor %}
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="row g-4 funto-collection-filter-list">
+                <!-- Single Card -->
+                {% for i in img %}
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 list-item {{ i.tag }}">
+                  <div class="nft-card card shadow-sm">
+                    <div class="card-body">
+                      <div class="img-wrap"><img src="{{ i.image.url }}" alt="">
+                        
+                       
+                      </div>
+                      
+                      <!-- Meta Info -->
+                      <div class="row gx-2 align-items-center mt-2">
+                        <div class="col-12">
+                          <div class="name-info d-flex align-items-center">
+                            <div class="author-img position-relative"><img class="shadow" src="{{ i.image.url }}" alt=""><i class="bi bi-check position-absolute bg-success"></i></div>
+                            <div class="name-author"><a class="name d-block hover-primary fw-bold text-truncate" href="/image/{{ i.sku }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Monkey Arts #114">{{ i.title }}</a><a class="author d-block fz-12 hover-primary text-truncate" href="/image/{{ i.sku }}">{{ i.desc }}</a></div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <!-- Button -->
+                      <div class="row gx-2 align-items-center mt-3">
+                        <div class="col-6"><a class="btn btn-primary btn-sm rounded-pill" href="/image/{{ i.sku }}">View</a></div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% comment %} footer {% endcomment %}
+
+{% include "base/footer.html"%}
+
+{% endblock %}

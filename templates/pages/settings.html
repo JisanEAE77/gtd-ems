@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+
+{% comment %} header  {% endcomment %}
+
+{% include "base/profile-header.html" %}
+
+{% include "base/sidebar.html" %}
+  
+  <!-- Create New Button -->
+  <div class="create-new-button"><a class="shadow-lg btn btn-warning" href="create-new.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Create New NFT"><i class="fz-18 bi bi-plus-lg"></i></a></div>
+  <div class="admin-wrapper">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+        {% if error %}
+          <h2 class="text-danger">{{ error }}</h2>
+        {% endif %}
+        {% if success %}
+          <h2 class="text-success">{{ success }}</h2>
+        {% endif %}
+        <div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
+          <ul class="nav nav-tabs border-0 mb-3" role="tablist">
+            <li class="nav-item"><a class="position-relative nav-link mb-0 rounded-pill border-0 me-1 active" id="tab--1" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Change Password</a></li>
+            {% if verified == "No" %}
+            <li class="nav-item"><a class="nav-link mb-0 rounded-pill border-0 me-1" id="tab--2" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Change Phone Number</a></li>
+            {% endif %}
+          </ul>
+          <div class="tab-content">
+            <!-- Tab Pane-->
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab--1">
+              <div class="card">
+                <div class="card-body p-4 p-sm-5">
+                  <form method="POST">
+                      {% csrf_token %}
+                    <div class="row g-4">
+                      <div class="col-12">
+                        <input class="form-control bg-gray border-0" type="text" name="oPass" placeholder="Old Password">
+                      </div>
+                      <div class="col-12">
+                        <input class="form-control bg-gray border-0" type="text" name="nPass" placeholder="New Password">
+                      </div>
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100 rounded-pill" type="submit"><i class="bi bi-sd-card-fill me-1"></i>Change Password</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% if verified == "No" %}
+            <!-- Tab Pane-->
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab--2">
+              <div class="card">
+                <div class="card-body p-4 p-sm-5">
+                  <form method="POST" action="/changePhone">
+                    {% csrf_token %}
+                    <div class="row g-4">
+                      <div class="col-12">
+                        <input class="form-control bg-gray border-0" type="text" name="phone" placeholder="Phone Number" value="{{ phone }}">
+                      </div>
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100 rounded-pill" type="submit"><i class="bi bi-sd-card-fill me-1"></i>Change Phone Number</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% comment %} footer {% endcomment %}
+
+{% include "base/footer.html"%}
+
+{% endblock %}
